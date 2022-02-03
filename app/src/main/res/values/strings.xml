@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Go4Lunch</string>
+    <string name="fbLoginBtnText">Sign in with Faceboook</string>
+    <string name="googleLoginText">Sign in with Google</string>
 </resources>
