@@ -3,17 +3,14 @@ package com.maggicco.go4lunch;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,19 +33,14 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        setBarComponents();
+        setTopNavigation();
+        setBottomNavigation();
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
-//        binding.googleLogoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                firebaseAuth.signOut();
-//                checkUser();
-//            }
-//        });
+
     }
 
     private void checkUser(){
@@ -77,8 +69,8 @@ public class LoggedInActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //set drawer action bar
-    public void setBarComponents(){
+    //Set top navigation
+    public void setTopNavigation(){
 
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_logged_in);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
@@ -88,7 +80,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView)findViewById(R.id.nv);
+        navigationView = (NavigationView)findViewById(R.id.top_navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -106,7 +98,6 @@ public class LoggedInActivity extends AppCompatActivity {
                         return true;
                 }
 
-
                 return true;
 
             }
@@ -114,7 +105,29 @@ public class LoggedInActivity extends AppCompatActivity {
 
     }
 
+    //Set bottom navigation
+    public void setBottomNavigation(){
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
+                switch (itemBottom.getItemId()) {
+                    case R.id.action_mapView:
+                        Toast.makeText(LoggedInActivity.this, "Map View", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_listView:
+                        Toast.makeText(LoggedInActivity.this, "List View", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_workmates:
+                        Toast.makeText(LoggedInActivity.this, "Workmates", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+
+    }
 
 
 
