@@ -32,14 +32,11 @@ public class LoggedInActivity extends AppCompatActivity {
         binding = ActivityLoggedInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         setTopNavigation();
         setBottomNavigation();
 
-
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
-
 
     }
 
