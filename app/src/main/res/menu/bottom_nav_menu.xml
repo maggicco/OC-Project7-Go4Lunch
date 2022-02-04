@@ -5,7 +5,7 @@
         android:id="@+id/action_mapView"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_map_24"
-        android:title="Workmates"
+        android:title="Map View"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_listView"
@@ -17,6 +17,6 @@
         android:id="@+id/action_workmates"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_people_24"
-        android:title="Map View"
+        android:title="Workmates"
         app:showAsAction="ifRoom" />
 </menu>

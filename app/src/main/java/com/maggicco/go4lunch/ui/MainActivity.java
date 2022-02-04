@@ -1,4 +1,4 @@
-package com.maggicco.go4lunch;
+package com.maggicco.go4lunch.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
