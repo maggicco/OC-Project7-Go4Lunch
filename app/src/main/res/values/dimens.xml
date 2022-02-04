@@ -16,4 +16,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Default NavigationView Header height -->
+    <dimen name="nav_header_height">176dp</dimen>
+
 </resources>

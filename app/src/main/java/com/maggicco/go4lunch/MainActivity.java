@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    // [START onactivityresult]
+    // onActivityResult
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // [START auth_with_google]
+    // START auth_with_google
     private void firebaseAuthWithGoogle(String idToken) {
         Log.d(TAG, "firebaseAuthWithGoogle : begin firebase auth with google");
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);

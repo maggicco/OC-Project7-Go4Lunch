@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="redGoogle">#D43333</color>
     <color name="blueFB">#3D65E0</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="drawerBottom">#FC6927</color>
 </resources>

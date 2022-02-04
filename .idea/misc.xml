@@ -9,10 +9,15 @@
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_rounded_corners_google.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_go4lunchbg.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout-w936dp/activity_main_nav_header.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_logged.xml" value="0.14739583333333334" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_logged_in.xml" value="0.16145833333333334" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/nav_header.xml" value="0.13333333333333333" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/activity_main_menu_drawer.xml" value="0.10416666666666667" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/activity_main_nav_header.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/navigation_menu.xml" value="0.13333333333333333" />
       </map>
     </option>
   </component>
