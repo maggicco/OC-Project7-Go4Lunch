@@ -11,6 +11,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="logout_drawer">LOGOUT</string>
+    <string name="setting_drawer">SETTINGS</string>
+    <string name="yourLunch_drawer">YOUR LUNCH</string>
 
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -18,6 +21,9 @@
 
     <string name="Open">open</string>
     <string name="Close">close</string>
+
+    <string name="facebook_app_id">973608296696991</string>
+    <string name="fb_login_protocol_scheme">fb973608296696991</string>
 
 
 </resources>

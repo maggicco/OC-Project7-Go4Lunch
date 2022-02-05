@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +31,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
     private ActivityLoggedInBinding binding;
 
-    View view  = binding.topNavigation;
+    //View view  = binding.topNavigation;
     private TextView textView;
 
     private FirebaseAuth firebaseAuth;
@@ -98,8 +99,8 @@ public class LoggedInActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.yourLunchItem:
-                        Intent intent = new Intent( view.getContext(), RestaurantDetailsActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent( view.getContext(), RestaurantDetailsActivity.class);
+                        //startActivity(intent);
                         Toast.makeText(LoggedInActivity.this, "Your \n Lunch",Toast.LENGTH_SHORT).show();break;
                     case R.id.settingsItem:
                         showCustomDialog();
