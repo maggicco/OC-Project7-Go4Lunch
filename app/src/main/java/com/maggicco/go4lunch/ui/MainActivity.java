@@ -2,6 +2,8 @@ package com.maggicco.go4lunch.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -41,6 +43,8 @@ import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG_FB, "facebook:onError", error);
             }
         });
-
 
     }
 

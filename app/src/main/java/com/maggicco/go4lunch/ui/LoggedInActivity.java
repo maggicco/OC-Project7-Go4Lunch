@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
+import android.app.AlarmManager;
 import android.app.Dialog;
-import android.content.Context;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,8 +29,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
+import com.maggicco.go4lunch.util.NotificationReceiver;
 
-import java.util.Locale;
+import java.util.Calendar;
 
 public class LoggedInActivity extends AppCompatActivity {
 
@@ -42,6 +45,8 @@ public class LoggedInActivity extends AppCompatActivity {
 
     //View view  = binding.topNavigation;
     private TextView textView;
+    private Button deleteButton;
+    private ToggleButton toggleButton;
 
     private FirebaseAuth firebaseAuth;
 
@@ -108,8 +113,8 @@ public class LoggedInActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.yourLunchItem:
-                        //Intent intent = new Intent( view.getContext(), RestaurantDetailsActivity.class);
-                        //startActivity(intent);
+//                        Intent intent = new Intent( view.getContext(), RestaurantDetailsActivity.class);
+//                        startActivity(intent);
                         Toast.makeText(LoggedInActivity.this, "Your \n Lunch",Toast.LENGTH_SHORT).show();break;
                     case R.id.settingsItem:
                         showCustomDialog();
@@ -162,18 +167,41 @@ public class LoggedInActivity extends AppCompatActivity {
         dialog.setCancelable(true);
         //Mention the name of the layout of your custom dialog.
         dialog.setContentView(R.layout.settings_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         //Initializing the views of the dialog.
-        ToggleButton toggleButton = dialog.findViewById(R.id.dialog_alarm_btn);
+        toggleButton = dialog.findViewById(R.id.dialog_alarm_btn);
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                boolean checked = ((ToggleButton) v).isChecked();
+                if(checked){
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, 21);
+                    calendar.set(Calendar.MINUTE, 28);
+                    calendar.set(Calendar.SECOND, 00);
+
+                    Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,
+                            intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
+
+
+                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    Toast.makeText(getApplicationContext(), "Les notification désactivées", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
 
-        Button deleteButton = dialog.findViewById(R.id.dialog_delete_btn);
+        deleteButton = dialog.findViewById(R.id.dialog_delete_btn);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +217,22 @@ public class LoggedInActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+    //For notification Calender and Alarm menager
+//    public void setCalendar(){
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY, 20);
+//        calendar.set(Calendar.MINUTE, 15);
+//        calendar.set(Calendar.SECOND, 0);
+//        if (calendar.getTime().compareTo(new Date()) < 0) calendar.add(Calendar.HOUR_OF_DAY, 0);
+//        Intent intent = new Intent(this, LoggedInActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        if (alarmManager != null) {
+//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//        }
+//    }
 
     // Delete user from FireBase
     public void deleteUser() {
