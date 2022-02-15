@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.maggicco.go4lunch.databinding.FragmentWorkMatesBinding;
 import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent.PlaceholderItem;
-import com.maggicco.go4lunch.ui.databinding.FragmentWorkMatesBinding;
+
 
 import java.util.List;
 

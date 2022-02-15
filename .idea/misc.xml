@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_fb_button.xml" value="0.1234375" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_rounded_corners.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_rounded_corners_fb_btn.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_rounded_corners_google.xml" value="0.1" />
@@ -14,7 +15,7 @@
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_logged.xml" value="0.14739583333333334" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_logged_in.xml" value="0.16145833333333334" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_restaurant_details.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/fragment_list_view_item.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/fragment_work_mates_item.xml" value="0.23645833333333333" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/activity_main_menu_drawer.xml" value="0.10416666666666667" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/activity_main_nav_header.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/bootom_nav_menu.xml" value="0.10729166666666666" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/nav_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/menu/navigation_menu.xml" value="0.13333333333333333" />
       </map>

@@ -37,21 +37,24 @@ public class MapsViewFragment extends Fragment {
         }
     };
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps_view, container, false);
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
-        }
-    }
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater,
+//                             @Nullable ViewGroup container,
+//                             @Nullable Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.fragment_maps_view, container, false);
+//    }
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        SupportMapFragment mapFragment =
+//                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+//        if (mapFragment != null) {
+//            mapFragment.getMapAsync(callback);
+//        }
+//    }
+
 }

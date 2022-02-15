@@ -127,13 +127,13 @@ public class LoggedInActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
                 switch (itemBottom.getItemId()) {
-                    case R.id.action_mapView:
+                    case R.id.action_mapView_fragment:
                         Toast.makeText(LoggedInActivity.this, "Map View", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.action_listView:
+                    case R.id.action_listView_fragment:
                         Toast.makeText(LoggedInActivity.this, "List View", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.action_workmates:
+                    case R.id.action_workmates_fragment:
                         Toast.makeText(LoggedInActivity.this, "Workmates", Toast.LENGTH_SHORT).show();
                         break;
                 }
