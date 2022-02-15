@@ -10,12 +10,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,11 +28,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
 
+import java.util.Locale;
+
 public class LoggedInActivity extends AppCompatActivity {
 
+    private static final String TAG = "Delete Account";
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+
 
     private ActivityLoggedInBinding binding;
 
@@ -155,11 +164,46 @@ public class LoggedInActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.settings_dialog);
 
         //Initializing the views of the dialog.
+        ToggleButton toggleButton = dialog.findViewById(R.id.dialog_alarm_btn);
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+        Button deleteButton = dialog.findViewById(R.id.dialog_delete_btn);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                deleteUser();
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(LoggedInActivity.this, "Account deleted", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
 
 
         dialog.show();
+
     }
 
+    // Delete user from FireBase
+    public void deleteUser() {
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User account deleted.");
+                        }
+                    }
+                });
+    }
 
 }

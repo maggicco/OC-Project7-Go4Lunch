@@ -15,6 +15,12 @@
     <string name="setting_drawer">SETTINGS</string>
     <string name="yourLunch_drawer">YOUR LUNCH</string>
 
+
+    <!-- Dialog -->
+    <string name="custom_dialog">Activer/Désactiver les notifications</string>
+    <string name="custom_dialog_delete">Supprimer votre compte</string>
+    <string name="delete_account">Supprimer votre compte</string>
+
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
