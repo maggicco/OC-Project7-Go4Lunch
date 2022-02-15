@@ -5,18 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:background="@color/teal_200">
-
-    <ImageView
-        android:id="@+id/image_bcg_nv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:paddingTop="8dp"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -24,10 +19,16 @@
         android:id="@+id/userNameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"/>
+        android:gravity="center_horizontal"
+        android:paddingTop="8dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/userEmailTv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/white"/>
 </LinearLayout>

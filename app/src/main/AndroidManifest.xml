@@ -19,9 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Go4Lunch"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".ui.NotificationActivity"
-            android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,12 +33,20 @@
 
         <activity
             android:name=".ui.RestaurantDetailsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".ui.LoggedInActivity"/>
+
         <activity
             android:name=".ui.LoggedInActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
 
         <receiver android:name=".util.NotificationReceiver" />
+
+        <activity
+            android:name=".ui.NotificationActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ui.MainActivity"

@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
 import com.maggicco.go4lunch.util.NotificationReceiver;
-
+import com.maggicco.go4lunch.ui.RestaurantDetailsActivity;
 import java.util.Calendar;
 
 public class LoggedInActivity extends AppCompatActivity {
@@ -48,6 +48,7 @@ public class LoggedInActivity extends AppCompatActivity {
     private Button deleteButton;
     private ToggleButton toggleButton;
 
+    private View view;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -85,15 +86,6 @@ public class LoggedInActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(actionBarDrawerToggle.onOptionsItemSelected(item))
-            return true;
-
-        return super.onOptionsItemSelected(item);
-    }
-
     //Set top navigation
     public void setTopNavigation(){
 
@@ -113,8 +105,8 @@ public class LoggedInActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.yourLunchItem:
-//                        Intent intent = new Intent( view.getContext(), RestaurantDetailsActivity.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent( LoggedInActivity.this, RestaurantDetailsActivity.class);
+                        startActivity(intent);
                         Toast.makeText(LoggedInActivity.this, "Your \n Lunch",Toast.LENGTH_SHORT).show();break;
                     case R.id.settingsItem:
                         showCustomDialog();
@@ -131,6 +123,15 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
     }
 
     //Set bottom navigation
@@ -179,8 +180,8 @@ public class LoggedInActivity extends AppCompatActivity {
                 if(checked){
 
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 21);
-                    calendar.set(Calendar.MINUTE, 28);
+                    calendar.set(Calendar.HOUR_OF_DAY, 11);
+                    calendar.set(Calendar.MINUTE, 50);
                     calendar.set(Calendar.SECOND, 00);
 
                     Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
