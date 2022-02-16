@@ -54,7 +54,7 @@ public class ListViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_view_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
 //        // Set the adapter
 //        if (view instanceof RecyclerView) {

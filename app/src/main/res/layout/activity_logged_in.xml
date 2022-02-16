@@ -13,17 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
 <!--        <androidx.appcompat.widget.Toolbar-->
 <!--            android:id="@+id/toolbar_main"-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:background="@color/redGoogle"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/redGoogle">-->
 
 <!--        </androidx.appcompat.widget.Toolbar>-->
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation" />
+
 
         <TextView
             android:id="@+id/textView"

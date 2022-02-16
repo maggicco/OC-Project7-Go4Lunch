@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -22,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
@@ -42,25 +47,23 @@ import java.util.Calendar;
 public class LoggedInActivity extends AppCompatActivity {
 
     private static final String TAG = "Delete Account";
+    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
-
-
+    private MapsViewFragment mapsViewFragment;
+    private ListViewFragment listViewFragment;
+    private WorkMatesFragment workMatesFragment;
     private ActivityLoggedInBinding binding;
-
-    //View view  = binding.topNavigation;
     private TextView textView;
     private Button deleteButton;
     private ToggleButton toggleButton;
-
     private static String TOGGLE_PREFS = "toogle_prefs";
     private static String SWITCH_STATUS = "switch_status";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     boolean switch_status;
-
     private View view;
     private FirebaseAuth firebaseAuth;
 
@@ -87,12 +90,13 @@ public class LoggedInActivity extends AppCompatActivity {
             finish();
         }
         else {
+
             // get photo in Firebase
 //            ImageView profileImage = findViewById(R.id.profileImage);
 //            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
 //                Glide.with(this)
 //                        .load(firebaseUser.getPhotoUrl())
-//                        .apply(RequestOptions.circleCropTransform())
+//                        .apply(RequestOptions.circleCropTransform()
 //                        .into(profileImage);
 //            } else {
 //
@@ -144,7 +148,7 @@ public class LoggedInActivity extends AppCompatActivity {
                         return true;
                 }
 
-                return true;
+                return false;
 
             }
         });
@@ -164,28 +168,32 @@ public class LoggedInActivity extends AppCompatActivity {
     public void setBottomNavigation(){
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
-        MapsViewFragment mapsViewFragment = new MapsViewFragment();
-        ListViewFragment listViewFragment = new ListViewFragment();
-        WorkMatesFragment workMatesFragment = new WorkMatesFragment();
+        bottomNavigationView.setSelectedItemId(R.id.action_mapView_fragment);
 
 
+        mapsViewFragment = new MapsViewFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content, mapsViewFragment, "");
+        fragmentTransaction.commit();
+
+        listViewFragment = new ListViewFragment();
+        workMatesFragment = new WorkMatesFragment();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
                 switch (itemBottom.getItemId()) {
                     case R.id.action_mapView_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, mapsViewFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, mapsViewFragment).commit();
                         return true;
                     case R.id.action_listView_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, listViewFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, listViewFragment).commit();
                         return true;
                     case R.id.action_workmates_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, workMatesFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, workMatesFragment).commit();
                         return true;
                 }
-                return false;
+                return true;
             }
         });
 
@@ -222,14 +230,6 @@ public class LoggedInActivity extends AppCompatActivity {
                     editor.apply();
                     toggleButton.setChecked(true);
 
-
-                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    editor.putBoolean(SWITCH_STATUS, false);
-                    editor.apply();
-                    toggleButton.setChecked(false);
-
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, 11);
                     calendar.set(Calendar.MINUTE, 23);
@@ -240,6 +240,14 @@ public class LoggedInActivity extends AppCompatActivity {
                             intent,PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
+
+                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
+                }else{
+
+                    editor.putBoolean(SWITCH_STATUS, false);
+                    editor.apply();
+                    toggleButton.setChecked(false);
 
                     Toast.makeText(getApplicationContext(), "Les notification désactivées", Toast.LENGTH_SHORT).show();
                 }

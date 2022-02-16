@@ -49,17 +49,12 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
     private static final String TAG = "GoogleActivity";
     private static final String TAG_FB = "FaceBookActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
-
-
     private FirebaseAuth firebaseAuth;
-
     private CallbackManager callbackManager;
-
     private String userId;
     private String userName;
     private String userEmail;

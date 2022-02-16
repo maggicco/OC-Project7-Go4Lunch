@@ -10,7 +10,6 @@
         android:title="@string/setting_drawer"/>
     <item android:id="@+id/logoutItem"
         android:icon="@drawable/ic_baseline_power_settings_new_24"
-        android:iconTint="@color/white"
         android:title="@string/logout_drawer"/>
 
 </menu>
