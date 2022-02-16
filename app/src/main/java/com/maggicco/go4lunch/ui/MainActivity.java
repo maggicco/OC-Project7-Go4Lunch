@@ -58,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    CallbackManager callbackManager;
+    private CallbackManager callbackManager;
+
+    private String userId;
+    private String userName;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
 
-        //SignInButton signInButton = findViewById(R.id.googleLoginBtn);
-        //signInButton.setSize(SignInButton.SIZE_STANDARD);
+//        SignInButton signInButton = findViewById(R.id.googleLoginBtn);
+//        signInButton.setSize(SignInButton.SIZE_STANDARD);
         binding.googleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,23 +98,28 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.login_buttonFB);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG_FB, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
+                        Arrays.asList("email", "public_profile"));
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG_FB, "facebook:onSuccess:" + loginResult);
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
 
-            }
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG_FB, "facebook:onCancel");
+                    }
 
-            @Override
-            public void onCancel() {
-                Log.d(TAG_FB, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG_FB, "facebook:onError", error);
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG_FB, "facebook:onError", error);
+                    }
+                });
             }
         });
 
@@ -180,9 +189,9 @@ public class MainActivity extends AppCompatActivity {
                         //get logged in user
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         //get user info
-                        String userId = firebaseUser.getUid();
-                        String userName = firebaseUser.getDisplayName();
-                        String userEmail = firebaseUser.getEmail();
+                        userId = firebaseUser.getUid();
+                        userName = firebaseUser.getDisplayName();
+                        userEmail = firebaseUser.getEmail();
 
                         Log.d(TAG, "onSuccess: userId: " + userId + " - " + userName);
                         Log.d(TAG, "onSuccess: userEmail: " + userEmail);
@@ -222,8 +231,19 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG_FB, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            updateUI(user);
+                            //get logged in user
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            //get user info
+                            userId = firebaseUser.getUid();
+                            userName = firebaseUser.getDisplayName();
+                            userEmail = firebaseUser.getEmail();
+
+                            Log.d(TAG_FB, "onSuccess: userId: " + userId + " - " + userName);
+                            Log.d(TAG_FB, "onSuccess: userEmail: " + userEmail);
+
+                            startActivity(new Intent(MainActivity.this, LoggedInActivity.class));
+                            finish();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG_FB, "signInWithCredential:failure", task.getException());

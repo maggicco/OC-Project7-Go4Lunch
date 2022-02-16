@@ -60,13 +60,13 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/top_navigation"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:menu="@menu/nav_menu"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/drawerBottom"
         android:fitsSystemWindows="true"
+        app:menu="@menu/nav_menu"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:headerLayout="@layout/nav_header">
     </com.google.android.material.navigation.NavigationView>
 

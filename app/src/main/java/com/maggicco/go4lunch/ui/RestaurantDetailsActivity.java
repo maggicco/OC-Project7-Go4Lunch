@@ -9,7 +9,7 @@ import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

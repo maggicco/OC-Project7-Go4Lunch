@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,10 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -48,6 +54,12 @@ public class LoggedInActivity extends AppCompatActivity {
     private Button deleteButton;
     private ToggleButton toggleButton;
 
+    private static String TOGGLE_PREFS = "toogle_prefs";
+    private static String SWITCH_STATUS = "switch_status";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    boolean switch_status;
+
     private View view;
     private FirebaseAuth firebaseAuth;
 
@@ -74,6 +86,19 @@ public class LoggedInActivity extends AppCompatActivity {
             finish();
         }
         else {
+            // get photo in Firebase
+//            ImageView profileImage = findViewById(R.id.profileImage);
+//            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
+//                Glide.with(this)
+//                        .load(firebaseUser.getPhotoUrl())
+//                        .apply(RequestOptions.circleCropTransform())
+//                        .into(profileImage);
+//            } else {
+//
+//                profileImage.setImageResource(R.mipmap.ic_launcher_round);
+//            }
+
+            // get email and name
             String userName = firebaseUser.getDisplayName();
             navigationView = binding.topNavigation;
             View header = navigationView.getHeaderView(0);
@@ -170,18 +195,36 @@ public class LoggedInActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.settings_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        //Initializing the views of the dialog.
         toggleButton = dialog.findViewById(R.id.dialog_alarm_btn);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //Shared Preferences
+        sharedPreferences = getSharedPreferences(TOGGLE_PREFS, MODE_PRIVATE);
+        editor = getSharedPreferences(TOGGLE_PREFS, MODE_PRIVATE).edit();
 
-                boolean checked = ((ToggleButton) v).isChecked();
-                if(checked){
+        switch_status = sharedPreferences.getBoolean(SWITCH_STATUS, false);
+        toggleButton.setChecked(switch_status);
+
+        //Initializing the views of the dialog.
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(buttonView.isChecked()){
+
+                    editor.putBoolean(SWITCH_STATUS, true);
+                    editor.apply();
+                    toggleButton.setChecked(true);
+
+
+                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
+                }else{
+
+                    editor.putBoolean(SWITCH_STATUS, false);
+                    editor.apply();
+                    toggleButton.setChecked(false);
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, 11);
-                    calendar.set(Calendar.MINUTE, 50);
+                    calendar.set(Calendar.MINUTE, 23);
                     calendar.set(Calendar.SECOND, 00);
 
                     Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
@@ -190,13 +233,7 @@ public class LoggedInActivity extends AppCompatActivity {
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
-
-
-                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
-                }else {
-
                     Toast.makeText(getApplicationContext(), "Les notification désactivées", Toast.LENGTH_SHORT).show();
-
                 }
 
             }
@@ -219,21 +256,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
     }
 
-    //For notification Calender and Alarm menager
-//    public void setCalendar(){
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY, 20);
-//        calendar.set(Calendar.MINUTE, 15);
-//        calendar.set(Calendar.SECOND, 0);
-//        if (calendar.getTime().compareTo(new Date()) < 0) calendar.add(Calendar.HOUR_OF_DAY, 0);
-//        Intent intent = new Intent(this, LoggedInActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        if (alarmManager != null) {
-//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-//        }
-//    }
+
 
     // Delete user from FireBase
     public void deleteUser() {

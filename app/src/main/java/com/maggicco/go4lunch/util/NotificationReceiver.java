@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
+import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.ui.NotificationActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -25,7 +26,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.ic_notification_icon)
                 .setContentTitle("Go4Lunch")
                 .setContentText("Midi")
                 .setAutoCancel(true);
