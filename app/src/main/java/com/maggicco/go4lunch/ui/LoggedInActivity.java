@@ -3,6 +3,7 @@ package com.maggicco.go4lunch.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,16 +18,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
@@ -72,6 +76,9 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoggedInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -79,6 +86,16 @@ public class LoggedInActivity extends AppCompatActivity {
         setBottomNavigation();
         checkUser();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem searchViewItem = menu.findItem(R.id.actionSearch);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void checkUser(){
@@ -124,10 +141,12 @@ public class LoggedInActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = (NavigationView)findViewById(R.id.top_navigation);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
