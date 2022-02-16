@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
     private String userId;
+    private String userImageUrl;
     private String userName;
     private String userEmail;
 
@@ -145,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
-
 
 
     // onActivityResult

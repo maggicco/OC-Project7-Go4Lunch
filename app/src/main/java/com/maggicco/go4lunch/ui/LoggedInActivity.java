@@ -113,7 +113,8 @@ public class LoggedInActivity extends AppCompatActivity {
 //            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
 //                Glide.with(this)
 //                        .load(firebaseUser.getPhotoUrl())
-//                        .apply(RequestOptions.circleCropTransform()
+//                        .apply(RequestOptions.circleCropTransform())
+//                        .placeholder(R.drawable.ic_launcher_foreground)
 //                        .into(profileImage);
 //            } else {
 //
