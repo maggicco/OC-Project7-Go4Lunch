@@ -18,6 +18,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsViewFragment extends Fragment {
 
+
+    public MapsViewFragment(){
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**

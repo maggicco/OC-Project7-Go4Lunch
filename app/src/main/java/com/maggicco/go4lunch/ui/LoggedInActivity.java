@@ -45,6 +45,7 @@ public class LoggedInActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+    private BottomNavigationView bottomNavigationView;
 
 
     private ActivityLoggedInBinding binding;
@@ -162,22 +163,29 @@ public class LoggedInActivity extends AppCompatActivity {
     //Set bottom navigation
     public void setBottomNavigation(){
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        MapsViewFragment mapsViewFragment = new MapsViewFragment();
+        ListViewFragment listViewFragment = new ListViewFragment();
+        WorkMatesFragment workMatesFragment = new WorkMatesFragment();
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
                 switch (itemBottom.getItemId()) {
                     case R.id.action_mapView_fragment:
-                        Toast.makeText(LoggedInActivity.this, "Map View", Toast.LENGTH_SHORT).show();
-                        break;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, mapsViewFragment).commit();
+                        return true;
                     case R.id.action_listView_fragment:
-                        Toast.makeText(LoggedInActivity.this, "List View", Toast.LENGTH_SHORT).show();
-                        break;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, listViewFragment).commit();
+                        return true;
                     case R.id.action_workmates_fragment:
-                        Toast.makeText(LoggedInActivity.this, "Workmates", Toast.LENGTH_SHORT).show();
-                        break;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, workMatesFragment).commit();
+                        return true;
                 }
-                return true;
+                return false;
             }
         });
 
