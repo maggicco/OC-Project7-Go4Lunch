@@ -42,6 +42,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
 import com.maggicco.go4lunch.util.NotificationReceiver;
@@ -51,7 +53,7 @@ import java.util.Calendar;
 public class LoggedInActivity extends AppCompatActivity {
 
     private static final String TAG = "Delete Account";
-    private Toolbar toolbar;
+    public Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
@@ -109,8 +111,19 @@ public class LoggedInActivity extends AppCompatActivity {
         else {
 
             // get photo in Firebase
-//            ImageView profileImage = findViewById(R.id.profileImage);
+            //StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+            ImageView profileImage = findViewById(R.id.profileImage);
+
 //            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
+//
+//
+//                String photoUrlstr = firebaseUser.getPhotoUrl().toString(); //here you store the link to quality
+//
+//                photoUrlstr = photoUrlstr + "?height=500"; //adjust quality
+//
+//                Glide.with(this).load(photoUrlstr).into(profileImage); //put it in Imageview
+//
 //                Glide.with(this)
 //                        .load(firebaseUser.getPhotoUrl())
 //                        .apply(RequestOptions.circleCropTransform())
@@ -120,6 +133,15 @@ public class LoggedInActivity extends AppCompatActivity {
 //
 //                profileImage.setImageResource(R.mipmap.ic_launcher_round);
 //            }
+//
+//            use it to set up ui
+//            usernameView.setText(mUsername);
+//            if (mUserprofileUrl == null) {
+//                userProfileView.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_account_circle));
+//            } else {
+//                Glide.with(MainActivity.this).load(mUserprofileUrl).into(userProfileView);
+//            }
+//            userProfileView.setVisibility(View.VISIBLE);
 
             // get email and name
             String userName = firebaseUser.getDisplayName();
@@ -251,8 +273,8 @@ public class LoggedInActivity extends AppCompatActivity {
                     toggleButton.setChecked(true);
 
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 11);
-                    calendar.set(Calendar.MINUTE, 23);
+                    calendar.set(Calendar.HOUR_OF_DAY, 22);
+                    calendar.set(Calendar.MINUTE, 44);
                     calendar.set(Calendar.SECOND, 00);
 
                     Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);

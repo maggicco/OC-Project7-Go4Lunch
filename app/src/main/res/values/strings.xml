@@ -14,6 +14,8 @@
     <string name="logout_drawer">LOGOUT</string>
     <string name="setting_drawer">SETTINGS</string>
     <string name="yourLunch_drawer">YOUR LUNCH</string>
+    <string name="not_yet"> has not decided yet</string>
+    <string name="already_did"> is eating</string>
 
 
     <!-- Dialog -->
