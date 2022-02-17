@@ -264,7 +264,7 @@ public class LoggedInActivity extends AppCompatActivity {
                     toggleButton.setChecked(true);
 
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 22);
+                    calendar.set(Calendar.HOUR_OF_DAY, 15);
                     calendar.set(Calendar.MINUTE, 44);
                     calendar.set(Calendar.SECOND, 00);
 
