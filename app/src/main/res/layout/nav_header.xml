@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_gravity="end"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:id="@+id/topNavigation">
 
     <ImageView
         android:id="@+id/profileImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="8dp"/>
+        android:paddingTop="15dp" />
 
     <TextView
         android:id="@+id/userNameTv"
@@ -24,9 +25,9 @@
 
     <TextView
         android:id="@+id/userEmailTv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="15dp"
         android:textColor="@color/white"/>

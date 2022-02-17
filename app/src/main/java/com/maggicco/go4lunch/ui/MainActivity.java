@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                         userName = firebaseUser.getDisplayName();
                         userEmail = firebaseUser.getEmail();
                         String userProfileUrl = firebaseUser.getPhotoUrl().toString();
-                        Log.i(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+                        Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
 
                         Log.d(TAG, "onSuccess: userId: " + userId + " - " + userName);
                         Log.d(TAG, "onSuccess: userEmail: " + userEmail);
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                             userName = firebaseUser.getDisplayName();
                             userEmail = firebaseUser.getEmail();
                             String userProfileUrl = firebaseUser.getPhotoUrl().toString();
-                            Log.i(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+                            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
 
 
                             Log.d(TAG_FB, "onSuccess: userId: " + userId + " - " + userName);

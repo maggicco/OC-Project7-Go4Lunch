@@ -58,7 +58,7 @@ public class LoggedInActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
-    private MapsViewFragment mapsViewFragment;
+    //private MapsViewFragment mapsViewFragment;
     private ListViewFragment listViewFragment;
     private WorkMatesFragment workMatesFragment;
     private ActivityLoggedInBinding binding;
@@ -77,10 +77,9 @@ public class LoggedInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoggedInBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_logged_in);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -111,48 +110,35 @@ public class LoggedInActivity extends AppCompatActivity {
         else {
 
             // get photo in Firebase
-            //StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            navigationView.findViewById(R.id.top_navigation);
+            View header = navigationView.getHeaderView(0);
+            ImageView profileImage = header.findViewById(R.id.profileImage);
 
-            ImageView profileImage = findViewById(R.id.profileImage);
+            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
 
-//            if (firebaseAuth.getCurrentUser().getPhotoUrl() != null) {
-//
-//
-//                String photoUrlstr = firebaseUser.getPhotoUrl().toString(); //here you store the link to quality
-//
-//                photoUrlstr = photoUrlstr + "?height=500"; //adjust quality
-//
-//                Glide.with(this).load(photoUrlstr).into(profileImage); //put it in Imageview
-//
-//                Glide.with(this)
-//                        .load(firebaseUser.getPhotoUrl())
-//                        .apply(RequestOptions.circleCropTransform())
-//                        .placeholder(R.drawable.ic_launcher_foreground)
-//                        .into(profileImage);
-//            } else {
-//
-//                profileImage.setImageResource(R.mipmap.ic_launcher_round);
-//            }
-//
-//            use it to set up ui
-//            usernameView.setText(mUsername);
-//            if (mUserprofileUrl == null) {
-//                userProfileView.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_account_circle));
-//            } else {
-//                Glide.with(MainActivity.this).load(mUserprofileUrl).into(userProfileView);
-//            }
-//            userProfileView.setVisibility(View.VISIBLE);
+                Glide.with(this)
+                        .load(firebaseUser.getPhotoUrl().toString())
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .into(profileImage);
+            } else {
+
+                profileImage.setImageResource(R.mipmap.ic_launcher_round);
+            }
 
             // get email and name
+            String userProfileUrl = firebaseUser.getPhotoUrl().toString();
             String userName = firebaseUser.getDisplayName();
-            navigationView = binding.topNavigation;
-            View header = navigationView.getHeaderView(0);
-            TextView userNameTv = header.findViewById(R.id.userNameTv);
+            navigationView = findViewById(R.id.top_navigation);
+            View navHeader = navigationView.getHeaderView(0);
+            TextView userNameTv = navHeader.findViewById(R.id.userNameTv);
             userNameTv.setText(userName);
 
             String userEmail = firebaseUser.getEmail();
             TextView userEmailTv = header.findViewById(R.id.userEmailTv);
             userEmailTv.setText(userEmail);
+            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+
         }
     }
 
@@ -213,10 +199,10 @@ public class LoggedInActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.action_mapView_fragment);
 
 
-        mapsViewFragment = new MapsViewFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content, mapsViewFragment, "");
-        fragmentTransaction.commit();
+        //mapsViewFragment = new MapsViewFragment();
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentContainer, mapsViewFragment, "");
+//        fragmentTransaction.commit();
 
         listViewFragment = new ListViewFragment();
         workMatesFragment = new WorkMatesFragment();
@@ -226,13 +212,13 @@ public class LoggedInActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
                 switch (itemBottom.getItemId()) {
                     case R.id.action_mapView_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, mapsViewFragment).commit();
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mapsViewFragment).commit();
                         return true;
                     case R.id.action_listView_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, listViewFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, listViewFragment).commit();
                         return true;
                     case R.id.action_workmates_fragment:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, workMatesFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, workMatesFragment).commit();
                         return true;
                 }
                 return true;
