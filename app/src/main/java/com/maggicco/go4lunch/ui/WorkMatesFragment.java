@@ -56,6 +56,9 @@ public class WorkMatesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_work_mates, container, false);
 
+        ((LoggedInActivity)getActivity()).setToolbarNavigation();
+        ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("Available workmates");
+
 //        // Set the adapter
 //        if (view instanceof RecyclerView) {
 //            Context context = view.getContext();

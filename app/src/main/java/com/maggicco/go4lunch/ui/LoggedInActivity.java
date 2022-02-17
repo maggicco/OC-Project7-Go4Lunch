@@ -58,7 +58,7 @@ public class LoggedInActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
-    //private MapsViewFragment mapsViewFragment;
+    private MapsViewFragment mapsViewFragment;
     private ListViewFragment listViewFragment;
     private WorkMatesFragment workMatesFragment;
     private ActivityLoggedInBinding binding;
@@ -78,12 +78,12 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoggedInBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_logged_in);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        setTopNavigation();
+        setToolbarNavigation();
         setBottomNavigation();
         checkUser();
 
@@ -94,7 +94,7 @@ public class LoggedInActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchViewItem = menu.findItem(R.id.actionSearch);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -143,7 +143,10 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     //Set top navigation
-    public void setTopNavigation(){
+    public void setToolbarNavigation(){
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_logged_in);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
@@ -153,6 +156,7 @@ public class LoggedInActivity extends AppCompatActivity {
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBarDrawerToggle.syncState();
 
         navigationView = (NavigationView)findViewById(R.id.top_navigation);
 
@@ -180,6 +184,8 @@ public class LoggedInActivity extends AppCompatActivity {
 
             }
         });
+//        if(myToolbar != null)
+//            myToolbar.setTitle(title);
 
     }
 
@@ -198,11 +204,10 @@ public class LoggedInActivity extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_mapView_fragment);
 
-
-        //mapsViewFragment = new MapsViewFragment();
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.fragmentContainer, mapsViewFragment, "");
-//        fragmentTransaction.commit();
+        mapsViewFragment = new MapsViewFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, mapsViewFragment, "");
+        fragmentTransaction.commit();
 
         listViewFragment = new ListViewFragment();
         workMatesFragment = new WorkMatesFragment();

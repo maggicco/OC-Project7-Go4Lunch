@@ -17,7 +17,6 @@
     <string name="not_yet"> has not decided yet</string>
     <string name="already_did"> is eating</string>
 
-
     <!-- Dialog -->
     <string name="custom_dialog">Activer/Désactiver les notifications</string>
     <string name="custom_dialog_delete">Supprimer votre compte</string>

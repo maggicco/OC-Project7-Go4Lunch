@@ -5,8 +5,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +31,7 @@ import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent;
  */
 public class ListViewFragment extends Fragment {
 
-    private Toolbar toolbar;
+    private Toolbar toolbarFragment;
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -67,10 +72,23 @@ public class ListViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
-        toolbar = view.findViewById(R.id.toolbar);
-        //getActivity().toolbar.setTitle("ListView");
+        ((LoggedInActivity)getActivity()).setToolbarNavigation();
+        ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("I'm hungry");
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        AppCompatActivity actionBar = (AppCompatActivity) getActivity();
+//        actionBar.setSupportActionBar(toolbar);
+//        DrawerLayout drawer = (DrawerLayout) actionBar.findViewById(R.id.activity_logged_in);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                getActivity(), drawer, toolbar, R.string.Open, R.string.Close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
+
+//        drawerLayout = (DrawerLayout)findViewById(R.id.activity_logged_in);
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
+
+
+        //((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("I'm hungry");
 
 //        // Set the adapter
 //        if (view instanceof RecyclerView) {
@@ -86,10 +104,15 @@ public class ListViewFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+//        inflater.inflate(R.menu.search_menu, menu);
+//        MenuItem searchViewItem = menu.findItem(R.id.actionSearch);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+
         super.onCreateOptionsMenu(menu, inflater);
+
     }
 
 }
