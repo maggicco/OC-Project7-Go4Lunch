@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Go4Lunch</string>
-    <string name="fbLoginBtnText">Sign in with Faceboook</string>
+    <string name="fbLoginBtnText">Sign in with Facebook</string>
     <string name="googleLoginText">Sign in with Google</string>
+    <string name="emailLoginText">Sign in with Email and Password</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
+    <string name="register">Register</string>
+    <string name="register_text">Register with Email and Password</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
@@ -16,6 +19,19 @@
     <string name="yourLunch_drawer">YOUR LUNCH</string>
     <string name="not_yet"> has not decided yet</string>
     <string name="already_did"> is eating</string>
+
+    <string name="create_account">Create Account</string>
+    <string name="upload_your_image">Upload Your Image</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="i_m_already_a_member">I am already a member.</string>
+    <string name="i_am_a_new_user">I am a New user.</string>
+    <string name="profile">Profile</string>
+    <string name="sign_in_using_email_and_password">Sign In using Email and Password</string>
+    <string name="sign_up_using_email_and_password">Sign Up using Email and Password</string>
+    <string name="best_way_to_invest_your_money">Best way to invest Your Money!</string>
 
     <!-- Dialog -->
     <string name="custom_dialog">Activer/Désactiver les notifications</string>

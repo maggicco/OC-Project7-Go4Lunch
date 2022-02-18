@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final String TAG_FB = "FaceBookActivity";
     private static final int RC_SIGN_IN = 9001;
+    private Button emailSignInBtn;
+    private Button registerBtn;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
@@ -119,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        emailSignInBtn = findViewById(R.id.emailLoginBtn);
+        emailSignInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginEmailActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     // [START on_start_check_user]
@@ -130,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    //check if user is already gigned in then go to loggedInActivity
+    //check if user is already signed in then go to loggedInActivity
     private void checkUser() {
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -186,8 +197,8 @@ public class MainActivity extends AppCompatActivity {
                         userId = firebaseUser.getUid();
                         userName = firebaseUser.getDisplayName();
                         userEmail = firebaseUser.getEmail();
-                        String userProfileUrl = firebaseUser.getPhotoUrl().toString();
-                        Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+                        userImageUrl = firebaseUser.getPhotoUrl().toString();
+                        Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userImageUrl);
 
                         Log.d(TAG, "onSuccess: userId: " + userId + " - " + userName);
                         Log.d(TAG, "onSuccess: userEmail: " + userEmail);
@@ -233,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
                             userId = firebaseUser.getUid();
                             userName = firebaseUser.getDisplayName();
                             userEmail = firebaseUser.getEmail();
-                            String userProfileUrl = firebaseUser.getPhotoUrl().toString();
-                            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+                            userImageUrl = firebaseUser.getPhotoUrl().toString();
+                            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userImageUrl);
 
 
                             Log.d(TAG_FB, "onSuccess: userId: " + userId + " - " + userName);

@@ -109,7 +109,7 @@ public class LoggedInActivity extends AppCompatActivity {
         }
         else {
 
-            // get photo in Firebase
+            // get photo from Firebase
             navigationView.findViewById(R.id.top_navigation);
             View header = navigationView.getHeaderView(0);
             ImageView profileImage = header.findViewById(R.id.profileImage);
@@ -127,7 +127,7 @@ public class LoggedInActivity extends AppCompatActivity {
             }
 
             // get email and name
-            String userProfileUrl = firebaseUser.getPhotoUrl().toString();
+            //String userProfileUrl = firebaseUser.getPhotoUrl().toString();
             String userName = firebaseUser.getDisplayName();
             navigationView = findViewById(R.id.top_navigation);
             View navHeader = navigationView.getHeaderView(0);
@@ -137,7 +137,7 @@ public class LoggedInActivity extends AppCompatActivity {
             String userEmail = firebaseUser.getEmail();
             TextView userEmailTv = header.findViewById(R.id.userEmailTv);
             userEmailTv.setText(userEmail);
-            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userProfileUrl);
+            Log.d(TAG, "Username: "+userName+" Userid: "+userEmail);
 
         }
     }

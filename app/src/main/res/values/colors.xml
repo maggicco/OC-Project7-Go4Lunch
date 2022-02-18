@@ -14,4 +14,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="drawerBottom">#FC6927</color>
     <color name="light_cream">#FFFEF1</color>
+    <color name="mandarin">#FEA347</color>
+    <color name="sign_up_button">#7962e4</color>
+    <color name="gray">#505050</color>
 </resources>
