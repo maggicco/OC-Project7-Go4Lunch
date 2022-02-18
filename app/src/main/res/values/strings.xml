@@ -19,7 +19,7 @@
     <string name="yourLunch_drawer">YOUR LUNCH</string>
     <string name="not_yet"> has not decided yet</string>
     <string name="already_did"> is eating</string>
-
+    <string name="i_am_here">I am here</string>
     <string name="create_account">Create Account</string>
     <string name="upload_your_image">Upload Your Image</string>
     <string name="full_name">Full Name</string>

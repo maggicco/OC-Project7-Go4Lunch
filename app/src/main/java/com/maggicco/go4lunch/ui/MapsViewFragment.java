@@ -2,13 +2,11 @@ package com.maggicco.go4lunch.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,13 +15,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,22 +28,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.Task;
 import com.maggicco.go4lunch.R;
 
 import org.jetbrains.annotations.NotNull;
 
 public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
-    Location currentLocation;
-    FusedLocationProviderClient fusedLocationProviderClient;
-    private static final int REQUEST_CODE = 101;
     private static final int LOCATION_MIN_UPDATE_TIME = 10;
     private static final int LOCATION_MIN_UPDATE_DISTANCE = 1000;
     private Location location = null;
     private GoogleMap googleMap;
-    private MapView mapView;
-
     private LocationManager locationManager;
     public MapsViewFragment(){
 
@@ -68,13 +58,15 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("I'm hungry");
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //initView(savedInstanceState);
 
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.search_menu, menu);
     }
 
 
@@ -84,8 +76,31 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
         initMap();
         getCurrentLocation();
-        //drawMarker(location, "Im here");
+
     }
+
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            drawMarker(location, getText(R.string.i_am_here).toString());
+            locationManager.removeUpdates(locationListener);
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
 
     private void initMap() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -105,12 +120,26 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         }
     }
 
-
     private void getCurrentLocation() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-
-
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            if (!isGPSEnabled && !isNetworkEnabled) {
+                Toast.makeText(getContext(), "GPS or Network problem!", Toast.LENGTH_LONG).show();
+            } else {
+                location = null;
+                if (isGPSEnabled) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_MIN_UPDATE_TIME, LOCATION_MIN_UPDATE_DISTANCE, locationListener);
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+                if (isNetworkEnabled) {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_MIN_UPDATE_TIME, LOCATION_MIN_UPDATE_DISTANCE, locationListener);
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                }
+                if (location != null) {
+                    drawMarker(location, getText(R.string.i_am_here).toString());
+                }
+            }
         } else {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 12);
@@ -131,40 +160,8 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             googleMap.addMarker(markerOptions);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
         }
     }
-
-//    private void fetchLastLocation() {
-//        if (ActivityCompat.checkSelfPermission(getContext(),
-//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
-//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(getActivity(), new String[]
-//                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-//            return;
-//        }
-//        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-//        task.addOnSuccessListener(location -> {
-//            if (location != null) {
-//                currentLocation = location;
-//                UpdateCurrentLocation();
-//                Toast.makeText(getContext(), currentLocation.getLatitude()
-//                        + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-//                SupportMapFragment supportMapFragment = (SupportMapFragment)
-//                        getChildFragmentManager().findFragmentById(R.id.map);
-//                supportMapFragment.getMapAsync(MapsViewFragment.this);
-//            }
-//        });
-//    }
-//
-//    private void UpdateCurrentLocation() {
-//        LatLng latLng = new LatLng(currentLocation.getLatitude(),
-//                currentLocation.getLongitude());
-//        MarkerOptions markerOptions = new MarkerOptions().position(latLng)
-//                .title("Here I am!");
-//        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 9));
-//        googleMap.addMarker(markerOptions);
-//    }
 
 }
