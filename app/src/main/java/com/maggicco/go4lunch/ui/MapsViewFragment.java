@@ -288,8 +288,9 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
             // Use fields to define the data types to return.
             //List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.TYPES, Place.Field.ID,
-                    Place.Field.LAT_LNG);
+            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS,
+                    Place.Field.ADDRESS_COMPONENTS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI,
+                    Place.Field.OPENING_HOURS, Place.Field.RATING);
 
             // Use the builder to create a FindCurrentPlaceRequest.
             FindCurrentPlaceRequest placeRequest = FindCurrentPlaceRequest.builder(placeFields).build();
