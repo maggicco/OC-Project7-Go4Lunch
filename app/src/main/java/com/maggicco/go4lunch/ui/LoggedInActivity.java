@@ -217,7 +217,7 @@ public class LoggedInActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem itemBottom) {
                 switch (itemBottom.getItemId()) {
                     case R.id.action_mapView_fragment:
-                        //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mapsViewFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mapsViewFragment).commit();
                         return true;
                     case R.id.action_listView_fragment:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, listViewFragment).commit();
