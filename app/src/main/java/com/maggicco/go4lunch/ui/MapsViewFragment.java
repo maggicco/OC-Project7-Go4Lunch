@@ -107,10 +107,7 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Nullable
     @Override
@@ -172,12 +169,12 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap map) {
         this.map = map;
 
 
         //        Sets mGoogleMap's style without poi.
-        //map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.json_poi_style));
+        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.json_poi_style));
 
 
         // Prompt the user for permission.
