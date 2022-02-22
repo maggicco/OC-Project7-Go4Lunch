@@ -217,7 +217,7 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
-                                                lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                                lastKnownLocation.getLongitude()), 15));
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
