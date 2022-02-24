@@ -9,6 +9,7 @@ public class Restaurant implements Serializable {
     String restName;
     String restAddress;
     String restPhone;
+    String openingHours;
     String restWebsite;
     String restRating;
 
