@@ -22,9 +22,6 @@
         android:theme="@style/Theme.Go4Lunch"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.RestaurantActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.LoginEmailActivity"
             android:exported="false"
             android:parentActivityName=".ui.MainActivity" />

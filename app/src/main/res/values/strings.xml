@@ -32,6 +32,9 @@
     <string name="sign_in_using_email_and_password">Sign In using Email and Password</string>
     <string name="sign_up_using_email_and_password">Sign Up using Email and Password</string>
     <string name="best_way_to_invest_your_money">Best way to invest Your Money!</string>
+    <string name="btn_call">CALL</string>
+    <string name="btn_like">LIKE</string>
+    <string name="btn_web">WEBSITE</string>
 
     <!-- Dialog -->
     <string name="custom_dialog">Activer/Désactiver les notifications</string>
