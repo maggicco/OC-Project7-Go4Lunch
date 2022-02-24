@@ -6,29 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.RestaurantDetailsActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".controllers.activities.RestaurantActivity">
-
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp"
+            android:contentDescription="resto_img" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_ok_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="300dp"
-            android:layout_marginTop="170dp"
-            android:clickable="true"
-            android:elevation="8dp"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_check_circle_red_24"
-            app:fabSize="auto"
-            tools:ignore="SpeakableTextPresentCheck" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="170dp"
+        android:clickable="true"
+        android:contentDescription="fab"
+        android:elevation="8dp"
+        android:focusable="true"
+        android:src="@drawable/ic_baseline_check_circle_red_24"
+        app:fabSize="auto"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
         <FrameLayout
             android:layout_width="match_parent"

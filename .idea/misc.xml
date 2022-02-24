@@ -14,6 +14,7 @@
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/custom_rounded_corners_google.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/dialog_background.xml" value="0.2526041666666667" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_baseline_alarm_24.xml" value="0.1" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_baseline_check_circle_red_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_baseline_local_dining_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_baseline_map_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.2526041666666667" />
@@ -34,7 +35,7 @@
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_notification.xml" value="0.22239583333333332" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_restaurant.xml" value="0.23645833333333333" />
-        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_restaurant_details.xml" value="0.23645833333333333" />
+        <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/activity_restaurant_details.xml" value="0.1" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/fragment_list_view.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/fragment_list_view_item.xml" value="0.23645833333333333" />
         <entry key="..\:/Formation_OpenClassRooms/Go4Lunch/app/src/main/res/layout/fragment_maps_view.xml" value="0.1125" />

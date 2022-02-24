@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -108,7 +109,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,15 +120,18 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Build the map
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         ((LoggedInActivity)getActivity()).setToolbarNavigation();
         ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("I'm hungry");
 
 
-        // Retrieve location and camera position from saved instance state.
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-        }
+//        // Retrieve location and camera position from saved instance state.
+//        if (savedInstanceState != null) {
+//            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+//            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+//        }
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -138,10 +141,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
-
-        //Build the map
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         idList = new ArrayList<>();
         placeList = new ArrayList<>();
@@ -173,26 +172,35 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         this.map = map;
 
 
-        //        Sets mGoogleMap's style without poi.
+        // Sets mGoogleMap's style without poi.
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.json_poi_style));
+
+        map.setOnMarkerClickListener(marker -> {
+            if (marker.getTitle().equals(marker.getTag())){
+                marker.setTag(null);
+                Intent intent = new Intent(getContext(), RestaurantDetailsActivity.class);
+                intent.putExtra("RESTAURANT_NAME", marker.getTitle());
+                startActivity(intent);
+            }
+            else{
+                marker.showInfoWindow();
+                marker.setTag(marker.getTitle());
+            }
+            return true;
+        });
 
 
         // Prompt the user for permission.
         getLocationPermission();
-//        updateLocationUI();
+
         //Get the current places around device location
         showCurrentPlace();
-//
+
 //        // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
-//
+
 //        // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-//
-        //initMap();
-//        getCurrentLocation();
-
-
 
     }
 
@@ -217,7 +225,7 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
-                                                lastKnownLocation.getLongitude()), 15));
+                                                lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -229,7 +237,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
                     }
                 });
-
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage(), e);
@@ -264,13 +271,10 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         locationPermissionGranted = false;
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true;
-                }
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationPermissionGranted = true;
             }
         }
         updateLocationUI();
@@ -288,9 +292,8 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
             // Use fields to define the data types to return.
             //List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS,
-                    Place.Field.ADDRESS_COMPONENTS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI,
-                    Place.Field.OPENING_HOURS, Place.Field.RATING);
+            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME,Place.Field.TYPES, Place.Field.ID,
+                    Place.Field.LAT_LNG);
 
             // Use the builder to create a FindCurrentPlaceRequest.
             FindCurrentPlaceRequest placeRequest = FindCurrentPlaceRequest.builder(placeFields).build();
@@ -316,12 +319,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                                 Log.d(TAG, "showCurrentPlace in list : " + placeLikelihood.getPlace().getId());
                                 fetchRestaurantDetails(placeLikelihood.getPlace().getId());
 
-//                                map.addMarker(new MarkerOptions()
-//                                        .position(placeLikelihood.getPlace().getLatLng())
-//                                        .title((String) placeLikelihood.getPlace().getName())
-//                                        .snippet((String) placeLikelihood.getPlace().getPhoneNumber()));
-
-
                             }
                         }
                     } else {
@@ -337,7 +334,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                 // See https://developer.android.com/training/permissions/requesting
                 getLocationPermission();
             }
-
         }
     }
 
@@ -365,28 +361,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
     }
 
     /**
-     * Init the map's UI settings based on whether the user has granted location permission.
-     */
-    private void initMap() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (googleMap != null) {
-                googleMap.setMyLocationEnabled(true);
-                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-                googleMap.getUiSettings().setAllGesturesEnabled(true);
-                googleMap.getUiSettings().setZoomControlsEnabled(true);
-
-            }
-        } else {
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 12);
-            }
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 13);
-            }
-        }
-    }
-
-    /**
      * Adds a marker on map according to the place's location and the place's name.
      */
     private void addMarkerOnMap() {
@@ -401,11 +375,11 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                             .title(place.getName()).icon(BitmapDescriptorFactory
                                     .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
-                else{
-                    map.addMarker(new MarkerOptions().position(place.getLatLng()).snippet(place.getId())
-                            .title(place.getName()).icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                }
+//                else{
+//                    map.addMarker(new MarkerOptions().position(place.getLatLng()).snippet(place.getId())
+//                            .title(place.getName()).icon(BitmapDescriptorFactory
+//                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+//                }
             }
         }
     }
@@ -432,9 +406,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
-
-
 
 
 }
