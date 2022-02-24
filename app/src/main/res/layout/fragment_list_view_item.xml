@@ -17,7 +17,7 @@
         android:scaleType="centerCrop">
 
         <TextView
-            android:id="@+id/list_name"
+            android:id="@+id/list_name_item"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -27,34 +27,34 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:id="@+id/list_distance"
+            android:id="@+id/list_distance_item"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="234dp"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/list_name"
+            android:layout_toEndOf="@+id/list_name_item"
             android:textColor="#1A237E"
             android:textStyle="italic|bold" />
 
         <TextView
-            android:id="@+id/list_adress"
+            android:id="@+id/list_address_item"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"/>
 
         <TextView
-            android:id="@+id/list_workmates"
+            android:id="@+id/list_workmates_item"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="240dp"
             android:layout_marginTop="30dp"
-            android:layout_toEndOf="@+id/list_adress"
-            android:drawableStart="@drawable/ic_baseline_perm_identity_24" />
+            android:layout_toEndOf="@+id/list_address_item"
+            app:drawableStartCompat="@drawable/ic_baseline_perm_identity_24" />
 
         <TextView
-            android:id="@+id/list_openhours"
+            android:id="@+id/list_openingHours_item"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -62,27 +62,28 @@
             android:textStyle="italic|bold" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/list_rating"
+            android:id="@+id/list_rating_item"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="227dp"
             android:layout_marginTop="60dp"
-            android:layout_toEndOf="@+id/list_openhours"
+            android:layout_toEndOf="@+id/list_openingHours_item"
             android:numStars="3"
             android:theme="@style/RatingBar" />
 
         <ImageView
-            android:id="@+id/list_photo"
+            android:id="@+id/list_photo_item"
             android:layout_width="110dp"
             android:layout_height="70dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="4dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
-            android:layout_toEndOf="@+id/list_distance"
-            android:scaleType="center" />
+            android:layout_toEndOf="@+id/list_distance_item"
+            android:scaleType="center"
+            android:contentDescription="TODO" />
 
     </RelativeLayout>
 

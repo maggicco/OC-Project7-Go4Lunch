@@ -12,18 +12,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.maggicco.go4lunch.R;
+import com.maggicco.go4lunch.model.WorkMate;
 import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent;
+
+import java.sql.Struct;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A fragment representing a list of Items.
  */
 public class WorkMatesFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+
+    DatabaseReference databaseReference;
+    @BindView(R.id.workMates_recyclerView)
+    RecyclerView recyclerView;
+    //WorkMatesRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -32,44 +45,54 @@ public class WorkMatesFragment extends Fragment {
     public WorkMatesFragment() {
     }
 
-    // TODO: Customize parameter initialization
-//    @SuppressWarnings("unused")
-//    public static WorkMatesFragment newInstance(int columnCount) {
-//        WorkMatesFragment fragment = new WorkMatesFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        if (getArguments() != null) {
-//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-//        }
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_work_mates, container, false);
+        ButterKnife.bind(this, view);
 
         ((LoggedInActivity)getActivity()).setToolbarNavigation();
         ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("Available workmates");
 
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        CollectionReference collectionUsers = db.collection("users");
+
+//        Query query = collectionUsers.orderBy("placeId", Query.Direction.DESCENDING);
+//
 //        // Set the adapter
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//            recyclerView.setAdapter(new WorkMatesRecyclerViewAdapter(PlaceholderContent.ITEMS));
-//        }
+//        FirebaseRecyclerOptions<WorkMate> options
+//                = new FirebaseRecyclerOptions.Builder<WorkMate>()
+//                .setQuery(query, WorkMate.class)
+//                .build();
+//        // Connecting object of required Adapter class to
+//        // the Adapter class itself
+//        this.adapter = new WorkMatesRecyclerViewAdapter(options);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        // Connecting Adapter class with the Recycler view*/
+//        recyclerView.setAdapter(adapter);
+
         return view;
+    }
+
+    // Function to tell the app to start getting
+    // data from database on starting of the activity
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //adapter.startListening();
     }
 }

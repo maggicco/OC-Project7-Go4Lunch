@@ -32,9 +32,7 @@ import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent;
 public class ListViewFragment extends Fragment {
 
     private Toolbar toolbarFragment;
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     /**
@@ -57,7 +55,6 @@ public class ListViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setHasOptionsMenu(true);
 
@@ -87,20 +84,6 @@ public class ListViewFragment extends Fragment {
 //        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
 
 
-        //((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("I'm hungry");
-
-//        // Set the adapter
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//            recyclerView.setAdapter(new ListViewRecyclerViewAdapter(PlaceholderContent.ITEMS));
-//        }
         return view;
     }
 
