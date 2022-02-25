@@ -264,13 +264,15 @@ public class LoggedInActivity extends AppCompatActivity {
                     toggleButton.setChecked(true);
 
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 15);
-                    calendar.set(Calendar.MINUTE, 44);
+                    calendar.set(Calendar.HOUR_OF_DAY, 14);
+                    calendar.set(Calendar.MINUTE, 11);
                     calendar.set(Calendar.SECOND, 00);
+
 
                     Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,
-                            intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                            intent,PendingIntent.FLAG_UPDATE_CURRENT |
+                                    PendingIntent.FLAG_MUTABLE);
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 

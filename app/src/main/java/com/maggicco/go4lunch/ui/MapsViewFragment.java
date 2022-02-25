@@ -102,8 +102,6 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
     // The entry point to the Places API.
     private String placeId;
 
-
-
     public MapsViewFragment(){
 
     }
@@ -166,11 +164,9 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         //inflater.inflate(R.menu.search_menu, menu);
     }
 
-
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
-
 
         // Sets mGoogleMap's style without poi.
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.json_poi_style));
@@ -178,6 +174,7 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         map.setOnMarkerClickListener(marker -> {
             if (marker.getTitle().equals(marker.getTag())){
                 marker.setTag(null);
+                
                 Intent intent = new Intent(getContext(), RestaurantDetailsActivity.class);
                 intent.putExtra("RESTAURANT_NAME", marker.getTitle());
                 startActivity(intent);
@@ -262,6 +259,7 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
+
     /**
      * Handles the result of the request for location permissions.
      */
@@ -345,8 +343,9 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
     private void fetchRestaurantDetails(String placeId) {
 //        Defines witch fields we want in the query's response.
         List<Place.Field> fields = Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS,
-                Place.Field.ADDRESS_COMPONENTS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI,
+                Place.Field.ADDRESS_COMPONENTS, Place.Field.PHOTO_METADATAS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI,
                 Place.Field.OPENING_HOURS, Place.Field.RATING);
+
 //        Creates the request with the defined fields about the given place.
         FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(placeId, fields).build();
 //        Requests GoogleMap's server to fetch place's details.
@@ -354,6 +353,9 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
             if (task.isSuccessful() && task.getResult() != null) {
                 Place place = (task.getResult()).getPlace();
                 placeList.add(place);
+                Log.d(TAG, "fetchRestaurantDetails: on MARKER" +task.getResult().getPlace().getPhoneNumber() +"-"
+                + task.getResult().getPlace().getAddress() + task.getResult().getPlace().getOpeningHours()
+                + task.getResult().getPlace().getPhotoMetadatas() + task.getResult().getPlace().getRating());
             }
             if (placeList.size() == idList.size())
                 addMarkerOnMap();
