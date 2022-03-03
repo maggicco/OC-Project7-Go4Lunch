@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.maggicco.go4lunch.R;
-import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +15,9 @@ import butterknife.ButterKnife;
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.resto_name)
-    TextView restoName;
+    TextView restaurantName;
+    @BindView(R.id.resto_address)
+    TextView restaurantAddress;
 
 
     @Override
@@ -30,7 +31,11 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = this.getIntent();
-        String titleDet = intent.getStringExtra("RESTAURANT_NAME");
-        restoName.setText(titleDet);
+        String titleDetail = intent.getStringExtra("RESTAURANT_NAME");
+        restaurantName.setText(titleDetail);
+
+        String addressDetail =  intent.getStringExtra("RESTAURANT_ADDRESS");
+        restaurantAddress.setText(addressDetail);
+
     }
 }

@@ -39,12 +39,16 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private Button registerBtn;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
     private CallbackManager callbackManager;
     private String userId;
     private String userImageUrl;
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         // [START initialize_auth]
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         checkUser();
 
 //        SignInButton signInButton = findViewById(R.id.googleLoginBtn);
@@ -208,6 +214,22 @@ public class MainActivity extends AppCompatActivity {
                             //new user Account created
                             Log.d(TAG, "onSuccess Account created ...\n" + userEmail);
                             Toast.makeText(MainActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
+
+                            DocumentReference documentReference = firebaseFirestore.collection("users").document();
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("userName", userName);
+                            user.put("userEmail", userEmail);
+                            user.put("userImageUrl", userImageUrl);
+                            user.put("userLikeId", Arrays.asList());
+                            user.put("userChosenRestaurantId", "");
+                            user.put("userChosenRestaurantName", "");
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Log.d(TAG, "onSuccess: User profile crated " + userId + "-" + userName);
+                                }
+                            });
+
                         }else {
                             Log.d(TAG, "onSuccess: Existing user ...\n" + userEmail);
                             Toast.makeText(MainActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
@@ -247,9 +269,34 @@ public class MainActivity extends AppCompatActivity {
                             userImageUrl = firebaseUser.getPhotoUrl().toString();
                             Log.d(TAG, "Username: "+userName+" Userid: "+userEmail+" profileUrl: "+userImageUrl);
 
-
                             Log.d(TAG_FB, "onSuccess: userId: " + userId + " - " + userName);
                             Log.d(TAG_FB, "onSuccess: userEmail: " + userEmail);
+
+                            //check if new or existing user
+                            if (task.getResult().getAdditionalUserInfo().isNewUser()){
+                                //new user Account created
+                                Log.d(TAG, "onSuccess Account created ...\n" + userEmail);
+                                Toast.makeText(MainActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
+
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document();
+                                Map<String,Object> user = new HashMap<>();
+                                user.put("userName", userName);
+                                user.put("userEmail", userEmail);
+                                user.put("userImageUrl", userImageUrl);
+                                user.put("userLikeId", Arrays.asList());
+                                user.put("userChosenRestaurantId", "");
+                                user.put("userChosenRestaurantName", "");
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: User profile crated " + userId + "-" + userName);
+                                    }
+                                });
+
+                            }else {
+                                Log.d(TAG, "onSuccess: Existing user ...\n" + userEmail);
+                                Toast.makeText(MainActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                            }
 
                             startActivity(new Intent(MainActivity.this, LoggedInActivity.class));
                             finish();

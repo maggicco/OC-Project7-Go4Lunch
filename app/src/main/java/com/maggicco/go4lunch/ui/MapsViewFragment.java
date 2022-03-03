@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -57,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -174,9 +176,11 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         map.setOnMarkerClickListener(marker -> {
             if (marker.getTitle().equals(marker.getTag())){
                 marker.setTag(null);
+
                 
                 Intent intent = new Intent(getContext(), RestaurantDetailsActivity.class);
                 intent.putExtra("RESTAURANT_NAME", marker.getTitle());
+                intent.putExtra("RESTAURANT_ADDRESS", marker.getSnippet());
                 startActivity(intent);
             }
             else{
@@ -374,8 +378,8 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
 
                 if (place.getLatLng() != null) {
                     map.addMarker(new MarkerOptions().position(place.getLatLng()).snippet(place.getId())
-                            .title(place.getName()).icon(BitmapDescriptorFactory
-                                    .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            .title(place.getName())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
 //                else{
 //                    map.addMarker(new MarkerOptions().position(place.getLatLng()).snippet(place.getId())

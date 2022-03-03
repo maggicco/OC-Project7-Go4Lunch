@@ -22,16 +22,25 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.maggicco.go4lunch.R;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class EmailRegisterActivity extends AppCompatActivity {
 
-    private String TAG;
+    private String TAG = EmailRegisterActivity.class.getSimpleName();
     private TextInputEditText userEmail, userPassword, confirmUserPassword, userName;
+    private String userImageUrl;
     private ProgressBar loadingProgress;
     private Button registerBtn, signInBtn;
     private FirebaseAuth firebaseAuth;
-    String userID;
+    private FirebaseFirestore firebaseFirestore;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,7 @@ public class EmailRegisterActivity extends AppCompatActivity {
         loadingProgress.setVisibility(View.INVISIBLE);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,15 +98,41 @@ public class EmailRegisterActivity extends AppCompatActivity {
                             //get logged in user
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             //get user info
-                            userID = firebaseUser.getUid();
-                            String userName = firebaseUser.getDisplayName();
-                            String userEmail = firebaseUser.getEmail();
+                            userId = firebaseUser.getUid();
+                            String username = firebaseUser.getDisplayName();
+                            String useremail = firebaseUser.getEmail();
                             Log.d(TAG, "Username: "+userName+" Userid: "+userEmail);
 
-                            Log.d(TAG, "onSuccess: userId: " + userID + " - " + userName);
+                            Log.d(TAG, "onSuccess: userId: " + userId + " - " + userName);
                             Log.d(TAG, "onSuccess: userEmail: " + userEmail);
 
                             updateUserInfo(name, firebaseAuth.getCurrentUser());
+
+                            //check if new or existing user
+                            if (task.getResult().getAdditionalUserInfo().isNewUser()){
+                                //new user Account created
+                                Log.d(TAG, "onSuccess Account created ...\n" + userEmail);
+                                Toast.makeText(EmailRegisterActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
+
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document();
+                                Map<String,Object> user = new HashMap<>();
+                                user.put("userName", username);
+                                user.put("userEmail", useremail);
+                                user.put("userImageUrl", "");
+                                user.put("userLikeId", Arrays.asList());
+                                user.put("userChosenRestaurantId", "");
+                                user.put("userChosenRestaurantName", "");
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: User profile crated " + userId + "-" + userName);
+                                    }
+                                });
+
+                            }else {
+                                Log.d(TAG, "onSuccess: Existing user ...\n" + userEmail);
+                                Toast.makeText(EmailRegisterActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                            }
 
                             startActivity(new Intent(EmailRegisterActivity.this, LoggedInActivity.class));
                             finish();

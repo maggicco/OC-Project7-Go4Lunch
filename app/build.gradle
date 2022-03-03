@@ -5,6 +5,7 @@ plugins {
 
 }
 
+
 android {
     compileSdk 31
 
@@ -36,6 +37,10 @@ android {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 
 }
