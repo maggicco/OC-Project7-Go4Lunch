@@ -42,15 +42,6 @@ public class ListViewFragment extends Fragment {
     public ListViewFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-//    public static ListViewFragment newInstance(int columnCount) {
-//        ListViewFragment fragment = new ListViewFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +49,6 @@ public class ListViewFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
 

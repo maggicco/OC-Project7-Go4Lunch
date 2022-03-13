@@ -11,7 +11,7 @@ public class WorkMate implements Serializable {
     public WorkMate() {
     }
 
-    public WorkMate(String mateId, String matePhoto, String mateName) {
+    public WorkMate(String mateId, String matePhoto, String mateName, String mateMail) {
         this.mateId = mateId;
         this.matePhoto = matePhoto;
         this.mateName = mateName;
@@ -40,4 +40,5 @@ public class WorkMate implements Serializable {
     public void setMateName(String mateName) {
         this.mateName = mateName;
     }
+
 }
