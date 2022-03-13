@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maggicco.go4lunch.R;
-import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent;
 
 /**
  * A fragment representing a list of Items.

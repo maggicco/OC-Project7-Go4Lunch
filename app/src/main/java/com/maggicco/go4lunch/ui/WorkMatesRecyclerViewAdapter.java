@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.FragmentWorkMatesBinding;
 import com.maggicco.go4lunch.model.WorkMate;
-import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent.PlaceholderItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,15 +20,14 @@ import butterknife.ButterKnife;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- */
+
 public class WorkMatesRecyclerViewAdapter extends RecyclerView.Adapter<WorkMatesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<WorkMate> workMateList = new ArrayList<>();
+    List<WorkMate> workMateList;
 
 
-    public WorkMatesRecyclerViewAdapter(List<WorkMate> workMateList, Context context) {
+    public WorkMatesRecyclerViewAdapter(List<WorkMate> workMateList) {
+
         this.workMateList = workMateList;
     }
 
@@ -55,13 +53,14 @@ public class WorkMatesRecyclerViewAdapter extends RecyclerView.Adapter<WorkMates
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.workmates_image_item)
+        //@BindView(R.id.workmates_image_item)
         ImageView matePhoto;
         @BindView(R.id.workmates_name_item)
         TextView mateName;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            matePhoto = itemView.findViewById(R.id.workmates_image_item);
             ButterKnife.bind(this, itemView);
         }
 

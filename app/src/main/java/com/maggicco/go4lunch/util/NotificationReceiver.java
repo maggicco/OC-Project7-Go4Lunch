@@ -9,7 +9,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 import com.maggicco.go4lunch.R;
-import com.maggicco.go4lunch.ui.NotificationActivity;
+import com.maggicco.go4lunch.ui.LoggedInActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -18,7 +18,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent notificationActivity = new Intent(context, NotificationActivity.class);
+        Intent notificationActivity = new Intent(context, LoggedInActivity.class);
         notificationActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, notificationActivity,

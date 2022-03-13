@@ -22,7 +22,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.model.WorkMate;
-import com.maggicco.go4lunch.ui.placeholder.PlaceholderContent;
 import com.maggicco.go4lunch.viewmodel.WorkMateViewModel;
 
 import java.sql.Struct;
@@ -35,12 +34,9 @@ import butterknife.ButterKnife;
  */
 public class WorkMatesFragment extends Fragment {
 
-
-    DatabaseReference databaseReference;
     @BindView(R.id.workMates_recyclerView)
     RecyclerView recyclerView;
     WorkMatesRecyclerViewAdapter adapter;
-    ProgressDialog progressDialog;
     WorkMateViewModel workMateViewModel;
 
     /**
@@ -67,10 +63,7 @@ public class WorkMatesFragment extends Fragment {
         ((LoggedInActivity)getActivity()).setToolbarNavigation();
         ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("Available workmates");
 
-        workMateViewModel = new ViewModelProvider(getActivity()).get(WorkMateViewModel.class);
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
+        workMateViewModel = new ViewModelProvider(this).get(WorkMateViewModel.class);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -78,7 +71,6 @@ public class WorkMatesFragment extends Fragment {
         //get workMates through viewModel
         workMateViewModel.getWorkMateMutableLiveData().observe(getViewLifecycleOwner(), workMateList -> {
 
-            progressDialog.dismiss();
             adapter = new WorkMatesRecyclerViewAdapter(workMateList);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
