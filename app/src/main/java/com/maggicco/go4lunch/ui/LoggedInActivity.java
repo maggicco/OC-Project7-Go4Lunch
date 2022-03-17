@@ -38,6 +38,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
 
@@ -245,29 +246,29 @@ public class LoggedInActivity extends AppCompatActivity {
         switch_status = sharedPreferences.getBoolean(SWITCH_STATUS, false);
         toggleButton.setChecked(switch_status);
 
-        //Initializing the views of the dialog.
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        //Initializing the views of the dialog. Toggle button activate/deactivate notification
+        toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if(buttonView.isChecked()){
+            if(buttonView.isChecked()){
 
-                    editor.putBoolean(SWITCH_STATUS, true);
-                    editor.apply();
-                    toggleButton.setChecked(true);
+                editor.putBoolean(SWITCH_STATUS, true);
+                editor.apply();
+                toggleButton.setChecked(true);
 
+                FirebaseMessaging.getInstance().subscribeToTopic("Go4Lunch");
 
-                    Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
-                }else{
+                Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();
+            }else{
 
-                    editor.putBoolean(SWITCH_STATUS, false);
-                    editor.apply();
-                    toggleButton.setChecked(false);
+                editor.putBoolean(SWITCH_STATUS, false);
+                editor.apply();
+                toggleButton.setChecked(false);
 
-                    Toast.makeText(getApplicationContext(), "Les notification désactivées", Toast.LENGTH_SHORT).show();
-                }
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("Go4Lunch");
 
+                Toast.makeText(getApplicationContext(), "Les notification désactivées", Toast.LENGTH_SHORT).show();
             }
+
         });
 
         deleteButton = dialog.findViewById(R.id.dialog_delete_btn);
@@ -279,6 +280,7 @@ public class LoggedInActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(LoggedInActivity.this, "Account deleted", Toast.LENGTH_SHORT).show();
                 finish();
+
             }
         });
 
