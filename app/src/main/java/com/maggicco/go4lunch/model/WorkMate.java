@@ -11,7 +11,7 @@ public class WorkMate implements Serializable {
     public WorkMate() {
     }
 
-    public WorkMate(String mateId, String matePhoto, String mateName, String mateMail) {
+    public WorkMate(String mateId, String matePhoto, String mateName) {
         this.mateId = mateId;
         this.matePhoto = matePhoto;
         this.mateName = mateName;

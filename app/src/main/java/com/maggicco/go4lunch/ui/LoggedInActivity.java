@@ -5,10 +5,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -32,8 +30,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.widget.Toolbar;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,12 +38,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
-import com.maggicco.go4lunch.util.NotificationReceiver;
-import com.maggicco.go4lunch.ui.RestaurantDetailsActivity;
+
 import java.util.Calendar;
 
 public class LoggedInActivity extends AppCompatActivity {
@@ -262,19 +255,6 @@ public class LoggedInActivity extends AppCompatActivity {
                     editor.putBoolean(SWITCH_STATUS, true);
                     editor.apply();
                     toggleButton.setChecked(true);
-
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 14);
-                    calendar.set(Calendar.MINUTE, 11);
-                    calendar.set(Calendar.SECOND, 00);
-
-
-                    Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,
-                            intent,PendingIntent.FLAG_UPDATE_CURRENT |
-                                    PendingIntent.FLAG_MUTABLE);
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
 
                     Toast.makeText(getApplicationContext(), "Les notification activées", Toast.LENGTH_SHORT).show();

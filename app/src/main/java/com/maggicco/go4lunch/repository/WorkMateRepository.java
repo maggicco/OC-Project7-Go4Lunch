@@ -46,6 +46,7 @@ public class WorkMateRepository {
 
                     if(mate != null){
                         workMateList.add(mate.toObject(WorkMate.class));
+                        Log.i(TAG, "onEvent: !!!!!!!!!!!!!!!!!!!!!!!!!!" + mate);
                     }
                 }
                 workMateListMutableLiveData.postValue(workMateList);
