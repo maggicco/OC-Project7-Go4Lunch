@@ -7,9 +7,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
@@ -41,8 +38,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityLoggedInBinding;
-
-import java.util.Calendar;
 
 public class LoggedInActivity extends AppCompatActivity {
 
@@ -98,7 +93,7 @@ public class LoggedInActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser == null){
             //user not logged in
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LogInActivity.class));
             finish();
         }
         else {

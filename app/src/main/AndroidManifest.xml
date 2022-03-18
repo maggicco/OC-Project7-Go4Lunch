@@ -33,7 +33,7 @@
         <activity
             android:name=".ui.LoginEmailActivity"
             android:exported="true"
-            android:parentActivityName=".ui.MainActivity" />
+            android:parentActivityName=".ui.LogInActivity" />
         <activity
             android:name=".ui.EmailRegisterActivity"
             android:exported="true"
@@ -60,7 +60,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.LogInActivity"
             android:exported="true"
             android:theme="@style/NoActionBar">
             <intent-filter>

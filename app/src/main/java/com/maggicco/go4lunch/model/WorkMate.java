@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class WorkMate implements Serializable {
 
-    String mateId;
+    String userId;
     String userImageUrl;
     String userName;
 
@@ -12,12 +12,12 @@ public class WorkMate implements Serializable {
     }
 
 
-    public String getMateId() {
-        return mateId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setMateId(String mateId) {
-        this.mateId = mateId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserImageUrl() {

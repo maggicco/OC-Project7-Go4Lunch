@@ -2,8 +2,6 @@ package com.maggicco.go4lunch.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -18,8 +16,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -27,7 +23,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,12 +40,10 @@ import com.maggicco.go4lunch.R;
 import com.maggicco.go4lunch.databinding.ActivityMainBinding;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private static final String TAG = "GoogleActivity";
@@ -105,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logInWithReadPermissions(MainActivity.this,
+                LoginManager.getInstance().logInWithReadPermissions(LogInActivity.this,
                         Arrays.asList("email", "public_profile"));
                 LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                     @Override
@@ -213,10 +206,11 @@ public class MainActivity extends AppCompatActivity {
                         if (authResult.getAdditionalUserInfo().isNewUser()){
                             //new user Account created
                             Log.d(TAG, "onSuccess Account created ...\n" + userEmail);
-                            Toast.makeText(MainActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogInActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
 
                             DocumentReference documentReference = firebaseFirestore.collection("users").document();
                             Map<String,Object> user = new HashMap<>();
+                            user.put("userId", userId);
                             user.put("userName", userName);
                             user.put("userEmail", userEmail);
                             user.put("userImageUrl", userImageUrl);
@@ -232,10 +226,10 @@ public class MainActivity extends AppCompatActivity {
 
                         }else {
                             Log.d(TAG, "onSuccess: Existing user ...\n" + userEmail);
-                            Toast.makeText(MainActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogInActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
                         }
 
-                        startActivity(new Intent(MainActivity.this, LoggedInActivity.class));
+                        startActivity(new Intent(LogInActivity.this, LoggedInActivity.class));
                         finish();
 
                     }
@@ -276,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                             if (task.getResult().getAdditionalUserInfo().isNewUser()){
                                 //new user Account created
                                 Log.d(TAG, "onSuccess Account created ...\n" + userEmail);
-                                Toast.makeText(MainActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, "Account Created...\n" + userEmail, Toast.LENGTH_SHORT).show();
 
                                 DocumentReference documentReference = firebaseFirestore.collection("users").document();
                                 Map<String,Object> user = new HashMap<>();
@@ -295,16 +289,16 @@ public class MainActivity extends AppCompatActivity {
 
                             }else {
                                 Log.d(TAG, "onSuccess: Existing user ...\n" + userEmail);
-                                Toast.makeText(MainActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogInActivity.this, "Existing User...\n" + userEmail, Toast.LENGTH_SHORT).show();
                             }
 
-                            startActivity(new Intent(MainActivity.this, LoggedInActivity.class));
+                            startActivity(new Intent(LogInActivity.this, LoggedInActivity.class));
                             finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG_FB, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(LogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
