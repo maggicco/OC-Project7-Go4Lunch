@@ -5,17 +5,12 @@ import java.io.Serializable;
 public class WorkMate implements Serializable {
 
     String mateId;
-    String matePhoto;
-    String mateName;
+    String userImageUrl;
+    String userName;
 
     public WorkMate() {
     }
 
-    public WorkMate(String mateId, String matePhoto, String mateName) {
-        this.mateId = mateId;
-        this.matePhoto = matePhoto;
-        this.mateName = mateName;
-    }
 
     public String getMateId() {
         return mateId;
@@ -25,20 +20,19 @@ public class WorkMate implements Serializable {
         this.mateId = mateId;
     }
 
-    public String getMatePhoto() {
-        return matePhoto;
+    public String getUserImageUrl() {
+        return userImageUrl;
     }
 
-    public void setMatePhoto(String matePhoto) {
-        this.matePhoto = matePhoto;
+    public void setUserImageUrl(String userImageUrl) {
+        this.userImageUrl = userImageUrl;
     }
 
-    public String getMateName() {
-        return mateName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMateName(String mateName) {
-        this.mateName = mateName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
 }

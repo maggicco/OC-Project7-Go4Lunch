@@ -127,11 +127,11 @@ public class MapsViewFragment extends Fragment implements OnMapReadyCallback{
         ((LoggedInActivity) getActivity()).getSupportActionBar().setTitle("I'm hungry");
 
 
-//        // Retrieve location and camera position from saved instance state.
-//        if (savedInstanceState != null) {
-//            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-//            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-//        }
+        // Retrieve location and camera position from saved instance state.
+        if (savedInstanceState != null) {
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 

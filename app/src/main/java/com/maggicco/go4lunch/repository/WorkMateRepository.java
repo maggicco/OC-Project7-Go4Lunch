@@ -22,7 +22,7 @@ public class WorkMateRepository {
     MutableLiveData<List<WorkMate>> workMateListMutableLiveData;
     FirebaseFirestore firebaseFirestore;
     MutableLiveData<WorkMate> workMateMutableLiveData;
-    List<WorkMate> workMateList;
+
 
     public WorkMateRepository() {
         this.workMateListMutableLiveData = new MutableLiveData<>();
@@ -41,7 +41,7 @@ public class WorkMateRepository {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                workMateList = new ArrayList<>();
+                List<WorkMate> workMateList = new ArrayList<>();
                 for (QueryDocumentSnapshot mate : value){
 
                     if(mate != null){

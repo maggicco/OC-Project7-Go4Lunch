@@ -23,7 +23,7 @@ import java.util.List;
 
 public class WorkMatesRecyclerViewAdapter extends RecyclerView.Adapter<WorkMatesRecyclerViewAdapter.ViewHolder> {
 
-    List<WorkMate> workMateList = new ArrayList<>();
+    List<WorkMate> workMateList;
 
 
     public WorkMatesRecyclerViewAdapter(List<WorkMate> workMateList) {
@@ -41,9 +41,9 @@ public class WorkMatesRecyclerViewAdapter extends RecyclerView.Adapter<WorkMates
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        holder.mateName.setText(workMateList.get(position).getMateName());
-        Log.i("WM RECYCLERVIEWADAPTER", "onBindViewHolder: " + workMateList.get(position).getMateName());
-        Glide.with(holder.itemView.getContext()).load(workMateList.get(position).getMatePhoto()).into(holder.matePhoto);
+        holder.mateName.setText(workMateList.get(position).getUserName());
+        Log.i("WM RECYCLERVIEWADAPTER", "onBindViewHolder: " + workMateList.get(position).getUserName());
+        Glide.with(holder.itemView.getContext()).load(workMateList.get(position).getUserImageUrl()).into(holder.matePhoto);
 
     }
 
@@ -59,7 +59,7 @@ public class WorkMatesRecyclerViewAdapter extends RecyclerView.Adapter<WorkMates
 
         public ViewHolder(View itemView) {
             super(itemView);
-            matePhoto = itemView.findViewById(R.id.workmates_image_item);
+           matePhoto = itemView.findViewById(R.id.workmates_image_item);
             mateName = itemView.findViewById(R.id.workmates_name_item);
         }
 
